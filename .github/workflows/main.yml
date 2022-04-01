@@ -30,3 +30,22 @@ jobs:
         context: .
         push: true
         tags: kareemadamu/dockerizednodeapp:latest 
+    
+    - name: 'Wait for SSH'
+      run: |
+        while ! nc -w5 -z ${{ secrets.INSTANCE_IP }} 22; do
+                sleep 5
+                echo "SSH not available..."
+        done; echo "SSH ready!"
+    - name: 'SSH to VM'
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.INSTANCE_IP }}
+        username: opc
+        key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+        timeout: 30s
+        script: |
+          docker rm -f nodeApp
+          docker rmi kareem/dockerizednodeapp:latest 
+          docker run -p 8080:8080 -d --name nodeApp karem/dockerizednodeapp
+
