@@ -12,6 +12,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # env:
+    #     STACK_NAME: "OCI Resource Manager Demo Stack"
+    #     PROVIDER_NAME: "GitHub Source Provider"
+    #     BRANCH_NAME: "github-actions-resource-manager"
+    #     REPO_URL: "https://github.com/recursivecodes/oci-resource-manager-demo"
+    #     TF_VERSION: "0.13.x"
+    #     REGION: "us-phoenix-1"
+    #     BUCKET_NAME: "test_bucket"
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
@@ -46,4 +55,4 @@ jobs:
         script: |
           docker rm -f nodeApp
           docker rmi kareemadamu/dockerizednodeapp:latest 
-          docker run -p 8080:8080 -d kareemadamu/dockerizednodeapp 
+          docker run -p 8080:8080 -d --name nodeApp kareemadamu/dockerizednodeapp
