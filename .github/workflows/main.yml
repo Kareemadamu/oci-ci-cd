@@ -53,6 +53,6 @@ jobs:
         key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
         timeout: 30s
         script: |
-          docker rm -f nodeApp
-          docker rmi kareemadamu/dockerizednodeapp:latest 
-          docker run -p 8080:8080 -d --name nodeApp kareemadamu/dockerizednodeapp
+          sudo docker rm -f nodeApp
+          sudo docker rmi kareemadamu/dockerizednodeapp:latest 
+          sudo docker run -p 8080:8080 -d --name nodeApp kareemadamu/dockerizednodeapp
